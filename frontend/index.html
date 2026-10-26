@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>登入 · Task Manager</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9C%85%3C/text%3E%3C/svg%3E">
+  <script src="vendor/tailwind.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Inter"', '"Noto Sans TC"', '"Microsoft JhengHei"', '"PingFang TC"', 'system-ui', 'sans-serif']
+          },
+          colors: {
+            brand: {
+              50:  '#eef2ff',
+              100: '#e0e7ff',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+              800: '#3730a3'
+            }
+          },
+          boxShadow: {
+            soft: '0 10px 40px -10px rgba(79,70,229,0.25)',
+            card: '0 1px 3px rgba(0,0,0,.06), 0 8px 30px -10px rgba(0,0,0,.12)'
+          },
+          keyframes: {
+            floaty: {
+              '0%,100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-6px)' }
+            },
+            fadeUp: {
+              '0%': { opacity: 0, transform: 'translateY(8px)' },
+              '100%': { opacity: 1, transform: 'translateY(0)' }
+            }
+          },
+          animation: {
+            floaty: 'floaty 6s ease-in-out infinite',
+            fadeUp: 'fadeUp .35s ease-out both'
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="vendor/lucide.js"></script>
+</head>
+<body class="min-h-screen bg-slate-50 font-sans antialiased">
+
+  <div class="relative min-h-screen flex items-center justify-center p-6 overflow-hidden">
+    <!-- 背景裝飾 -->
+    <div class="pointer-events-none absolute inset-0 -z-10">
+      <div class="absolute -top-32 -left-32 w-[480px] h-[480px] bg-brand-200/40 rounded-full blur-3xl animate-floaty"></div>
+      <div class="absolute -bottom-32 -right-24 w-[520px] h-[520px] bg-purple-200/40 rounded-full blur-3xl animate-floaty" style="animation-delay:-2s"></div>
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(15,23,42,0.05)_1px,transparent_0)] [background-size:24px_24px] opacity-40"></div>
+    </div>
+
+    <div class="w-full max-w-md animate-fadeUp">
+      <!-- Logo -->
+      <div class="flex items-center justify-center gap-3 mb-8">
+        <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-brand-500 to-purple-600 grid place-items-center shadow-soft">
+          <i data-lucide="check-check" class="w-6 h-6 text-white"></i>
+        </div>
+        <div>
+          <div class="text-xl font-bold text-slate-900">Task Manager</div>
+          <div class="text-xs text-slate-500">便攜式全端展示專案</div>
+        </div>
+      </div>
+
+      <!-- Card -->
+      <div class="bg-white/80 backdrop-blur-xl border border-slate-200/70 rounded-2xl shadow-card p-7">
+        <!-- Tabs -->
+        <div class="flex p-1 bg-slate-100 rounded-xl mb-6">
+          <button id="tab-login" class="flex-1 py-2 text-sm font-semibold rounded-lg bg-white shadow text-slate-900 transition">登入</button>
+          <button id="tab-register" class="flex-1 py-2 text-sm font-semibold rounded-lg text-slate-500 transition">註冊</button>
+        </div>
+
+        <!-- Login form -->
+        <form id="form-login" class="space-y-4">
+          <div>
+            <label class="text-xs font-medium text-slate-600">帳號</label>
+            <div class="mt-1 relative">
+              <i data-lucide="user" class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
+              <input name="username" autocomplete="username" required
+                     class="w-full pl-9 pr-3 py-2.5 rounded-lg border border-slate-200 bg-white focus:border-brand-500 focus:ring-2 focus:ring-brand-100 outline-none transition"
+                     placeholder="demo">
+            </div>
+          </div>
+          <div>
+            <label class="text-xs font-medium text-slate-600">密碼</label>
+            <div class="mt-1 relative">
+              <i data-lucide="lock" class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
+              <input name="password" type="password" autocomplete="current-password" required
+                     class="w-full pl-9 pr-3 py-2.5 rounded-lg border border-slate-200 bg-white focus:border-brand-500 focus:ring-2 focus:ring-brand-100 outline-none transition"
+                     placeholder="demo1234">
+            </div>
+          </div>
+          <button type="submit"
+                  class="w-full py-2.5 rounded-lg bg-gradient-to-r from-brand-600 to-purple-600 hover:from-brand-700 hover:to-purple-700 text-white font-semibold shadow-soft transition active:scale-[0.99]">
+            登入
+          </button>
+          <div class="text-xs text-slate-500 bg-slate-50 rounded-lg p-3 leading-relaxed">
+            <div class="font-medium text-slate-600 mb-1">測試帳號</div>
+            <div>• <code class="text-slate-700">demo</code> / <code class="text-slate-700">demo1234</code></div>
+            <div>• <code class="text-slate-700">alice</code> / <code class="text-slate-700">alice1234</code></div>
+          </div>
+        </form>
+
+        <!-- Register form -->
+        <form id="form-register" class="space-y-4 hidden">
+          <div>
+            <label class="text-xs font-medium text-slate-600">顯示名稱（選填）</label>
+            <div class="mt-1 relative">
+              <i data-lucide="smile" class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
+              <input name="display_name"
+                     class="w-full pl-9 pr-3 py-2.5 rounded-lg border border-slate-200 bg-white focus:border-brand-500 focus:ring-2 focus:ring-brand-100 outline-none transition"
+                     placeholder="你的暱稱">
+            </div>
+          </div>
+          <div>
+            <label class="text-xs font-medium text-slate-600">帳號</label>
+            <div class="mt-1 relative">
+              <i data-lucide="user" class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
+              <input name="username" autocomplete="username" required minlength="3"
+                     class="w-full pl-9 pr-3 py-2.5 rounded-lg border border-slate-200 bg-white focus:border-brand-500 focus:ring-2 focus:ring-brand-100 outline-none transition"
+                     placeholder="至少 3 個字元">
+            </div>
+          </div>
+          <div>
+            <label class="text-xs font-medium text-slate-600">密碼</label>
+            <div class="mt-1 relative">
+              <i data-lucide="lock" class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
+              <input name="password" type="password" autocomplete="new-password" required minlength="4"
+                     class="w-full pl-9 pr-3 py-2.5 rounded-lg border border-slate-200 bg-white focus:border-brand-500 focus:ring-2 focus:ring-brand-100 outline-none transition"
+                     placeholder="至少 4 個字元">
+            </div>
+          </div>
+          <button type="submit"
+                  class="w-full py-2.5 rounded-lg bg-gradient-to-r from-brand-600 to-purple-600 hover:from-brand-700 hover:to-purple-700 text-white font-semibold shadow-soft transition active:scale-[0.99]">
+            建立帳號並登入
+          </button>
+        </form>
+      </div>
+
+      <p class="text-center text-xs text-slate-400 mt-6">
+        © Task Manager Demo · Node + Express + SQLite
+      </p>
+      <p id="clock" class="text-center text-xs text-slate-400 mt-2 tabular-nums"></p>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="fixed top-5 right-5 hidden z-50">
+    <div class="px-4 py-3 rounded-xl shadow-card text-sm font-medium"></div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>

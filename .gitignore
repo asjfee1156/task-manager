@@ -1,0 +1,21 @@
+# 可攜式執行環境(體積大,請改用 Release 下載完整 zip)
+runtime/
+
+# Logs
+node_modules/
+*.log
+npm-debug.log*
+
+# 運行時產物
+data/*.db
+data/*.db-wal
+data/*.db-shm
+
+# Editor
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# OS
+desktop.ini
